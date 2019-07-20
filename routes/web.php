@@ -14,3 +14,7 @@
 Route::get('/', 'ArticleController@index');
 Route::get('/articles', 'ArticleController@index');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
