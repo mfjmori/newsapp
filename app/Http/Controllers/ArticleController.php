@@ -13,7 +13,14 @@ class ArticleController extends Controller
      */
     public function index()
     {
-      return view('article.index');
+      $newsApiKey =  env('NEWS_API_KEY');
+      $url = 'https://newsapi.org/v2/top-headlines?'.'country=jp&'.'category=&'.'apiKey='.$newsApiKey;
+      $json = file_get_contents($url, false, null);
+      if ($json) {
+        $contents = json_decode($json);
+      }
+      $contents = $contents ? $contents : null;
+      return view('article.index', ['contents' => $contents]);
     }
 
     /**

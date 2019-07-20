@@ -1,20 +1,32 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+@extends('layouts.app_articles')
 
-        <title>Laravel</title>
-
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <script type="text/javascript" src="js/app.js"></script>
-    </head>
-    <body>
-      <div class="container articles-container">
-
-      </div>
-    </body>
-</html>
+@section('content')
+<div class="container articles-container">
+  @if ($contents)
+    @foreach ($contents->articles as $article)
+      <a href="{{$article->url}}" class="show-detail text-dark" target="_blank">
+        <div class="card my-3">
+          <div class="row no-gutters">
+            <div class="img-box col-md-4">
+              <img src="{{$article->urlToImage}}" class="card-img-top">
+            </div>
+            <div class="main-box col-md-8">
+              <div class="card-body">
+                <div class="card-body-main">
+                  <h5 class="card-title font-weight-bold">{{$article->title}}</h5>
+                  <p class="card-text">{{$article->description}}</p>
+                </div>
+                <p class="card-body-sub">
+                  <span class="card-source text-muted mr-2">{{$article->source->name}}</span><span class="card-date text-muted">{{ date("Y/m/d H:i",strtotime($article->publishedAt))}}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    @endforeach
+  @endif
+</div>
+<div class="container articles-container">
+</div>
+@endsection

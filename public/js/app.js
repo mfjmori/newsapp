@@ -36911,9 +36911,7 @@ module.exports = function(module) {
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-__webpack_require__(/*! ./article.js */ "./resources/js/article.js"); // window.Vue = require('vue');
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -36934,44 +36932,6 @@ __webpack_require__(/*! ./article.js */ "./resources/js/article.js"); // window.
 // const app = new Vue({
 //     el: '#app',
 // });
-
-/***/ }),
-
-/***/ "./resources/js/article.js":
-/*!*********************************!*\
-  !*** ./resources/js/article.js ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-$(function () {
-  // 記事のhttpを生成する
-  var getArticleHtml = function getArticleHtml(index, article) {
-    var urlToImage = article.urlToImage ? article.urlToImage : "#";
-    var title = article.title;
-    var description = article.description;
-    var url = article.url;
-    var publishedAt = article.publishedAt;
-    var source = article.source.name;
-    var html = "<a href=\"".concat(url, "\" class=\"show-detail\" target=\"_blank\" data-index=\"").concat(index, "\">\n        <div class=\"card my-3\">\n          <div class=\"row no-gutters\">\n            <div class=\"col-md-4\">\n              <img src=\"").concat(urlToImage, "\" class=\"card-img-top\">\n            </div>\n            <div class=\"col-md-8\">\n              <div class=\"card-body\">\n                <h5 class=\"card-title\">").concat(title, "</h5>\n                <p class=\"card-text\">").concat(description, "</p>\n                <p><span class=\"card-source text-muted mr-2\">").concat(source, "</span>").concat(publishedAt, "<small class=\"card-date text-muted\"></small></p>\n              </div>\n            </div>\n          </div>\n        </div>\n      </a>");
-    return html;
-  };
-
-  $.ajax({
-    url: 'https://newsapi.org/v2/top-headlines?' + 'country=jp&' + 'apiKey=f83368c03a674f18b9fc1a48ac264a74',
-    type: 'GET'
-  }) // Ajaxリクエストが成功した時発動
-  .done(function (data) {
-    $.each(data.articles, function (index, article) {
-      var html = getArticleHtml(index, article);
-      console.log(html);
-      $('.articles-container').append(html);
-    });
-  }) // Ajaxリクエストが失敗した時発動
-  .fail(function (data) {
-    console.log(data);
-  });
-});
 
 /***/ }),
 
