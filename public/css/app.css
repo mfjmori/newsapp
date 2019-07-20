@@ -1,5 +1,38 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
+.articles-container .show-detail {
+  text-decoration: none;
+}
+
+.articles-container .show-detail .card .row .img-box .card-img-top {
+  height: 200px;
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.articles-container .show-detail .card .row .main-box .card-body {
+  height: 200px;
+}
+
+.articles-container .show-detail .card .row .main-box .card-body .card-body-main {
+  height: 150px;
+}
+
+.articles-container .show-detail .card .row .main-box .card-body .card-body-main .card-title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.articles-container .show-detail .card .row .main-box .card-body .card-body-main .card-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
