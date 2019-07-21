@@ -12,7 +12,7 @@
 */
 
 Route::get('/', 'ArticleController@index');
-Route::get('/articles', 'ArticleController@index');
+Route::get('/articles/{category?}', 'ArticleController@index');
 
 
 Auth::routes();

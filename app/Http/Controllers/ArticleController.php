@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -11,10 +12,11 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ArticleRequest $request)
     {
       $newsApiKey =  env('NEWS_API_KEY');
-      $url = 'https://newsapi.org/v2/top-headlines?'.'country=jp&'.'category=&'.'apiKey='.$newsApiKey;
+      $category = $request->category;
+      $url = 'https://newsapi.org/v2/top-headlines?'.'country=jp&'.'category='.$category.'&apiKey='.$newsApiKey;
       $json = file_get_contents($url, false, null);
       if ($json) {
         $contents = json_decode($json);
