@@ -1,0 +1,12 @@
+.navbar {
+  .navbar-nav {
+    .active {
+      border-bottom: thick solid red;
+    }
+    .nav-item {
+      .nav-link {
+        font-size: 18px;
+      }
+    }
+  }
+}

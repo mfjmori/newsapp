@@ -1,5 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
+.navbar .navbar-nav .active {
+  border-bottom: thick solid red;
+}
+
+.navbar .navbar-nav .nav-item .nav-link {
+  font-size: 18px;
+}
+
 .articles-container .show-detail {
   text-decoration: none;
 }
