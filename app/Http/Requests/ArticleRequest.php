@@ -25,7 +25,7 @@ class ArticleRequest extends FormRequest
     public function rules()
     {
         return [
-          'category' => 'in:business,entertainment,health,science,sports,technology,,',
+          'category' => 'in:business,science,technology,techcrunch,mashable,the-verge,techradar,wired,hacker-news',
         ];
     }
 

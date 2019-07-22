@@ -5,25 +5,31 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav w-100 nav-justified font-weight-bold">
       <li class="nav-item">
-        <a class="nav-link {{Helper::addActive('')}}" href="{{ route('articles.index')}}">総合</a>
+        <a class="nav-link {{Helper::addActive('/technology')}}" href="{{ route('articles.index', ['category' => 'technology'])}}">技術</a>
       </li>
       <li class="nav-item">
         <a class="nav-link {{Helper::addActive('/business')}}" href="{{ route('articles.index', ['category' => 'business'])}}">ビジネス</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {{Helper::addActive('/entertainment')}}" href="{{ route('articles.index', ['category' => 'entertainment'])}}">エンタメ</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link {{Helper::addActive('/health')}}" href="{{ route('articles.index', ['category' => 'health'])}}">美容・健康</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link {{Helper::addActive('/science')}}" href="{{ route('articles.index', ['category' => 'science'])}}">科学</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {{Helper::addActive('/sports')}}" href="{{ route('articles.index', ['category' => 'sports'])}}">スポーツ</a>
+        <a class="nav-link {{Helper::addActive('/hacker-news')}}" href="{{ route('articles.index', ['category' => 'hacker-news'])}}">Hacker news</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {{Helper::addActive('/technology')}}" href="{{ route('articles.index', ['category' => 'technology'])}}">技術</a>
+        <a class="nav-link {{Helper::addActive('/mashable')}}" href="{{ route('articles.index', ['category' => 'mashable'])}}">Mashable</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{Helper::addActive('/techcrunch')}}" href="{{ route('articles.index', ['category' => 'techcrunch'])}}">TechCrunch</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{Helper::addActive('/the-verge')}}" href="{{ route('articles.index', ['category' => 'the-verge'])}}">The verge</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{Helper::addActive('/techradar')}}" href="{{ route('articles.index', ['category' => 'techradar'])}}">Techradar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{Helper::addActive('/wired')}}" href="{{ route('articles.index', ['category' => 'wired'])}}">Wired</a>
       </li>
     </ul>
   </div>

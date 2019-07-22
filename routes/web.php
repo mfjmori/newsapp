@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'ArticleController@index');
+Route::redirect('/', '/articles/technology', 301);
 Route::get('/articles/{category?}', 'ArticleController@index')->name('articles.index');
 
 

@@ -16,7 +16,13 @@ class ArticleController extends Controller
     {
       $newsApiKey =  env('NEWS_API_KEY');
       $category = $request->category;
-      $url = 'https://newsapi.org/v2/top-headlines?'.'country=jp&'.'category='.$category.'&apiKey='.$newsApiKey;
+      $categoryArray = ['business', 'science', 'technology',''];
+      $include = in_array($category, $categoryArray);
+      if ($include) {
+        $url = 'https://newsapi.org/v2/top-headlines?'.'country=jp&'.'category='.$category.'&apiKey='.$newsApiKey;
+      } else {
+        $url = 'https://newsapi.org/v2/everything?'.'sources='.$category.'&apiKey='.$newsApiKey;
+      }
       $json = file_get_contents($url, false, null);
       if ($json) {
         $contents = json_decode($json);
