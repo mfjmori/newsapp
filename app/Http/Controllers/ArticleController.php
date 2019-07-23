@@ -31,6 +31,17 @@ class ArticleController extends Controller
       return view('article.index', ['contents' => $contents]);
     }
 
+    public function qiita(Request $request)
+    {
+      $url = 'https://qiita.com/api/v2/items?page=1&per_page=30&query=stocks:>40+created:>=2019-07-16';
+      $json = file_get_contents($url, false, null);
+      if ($json) {
+        $contents = json_decode($json);
+      }
+      $contents = isset($contents) ? $contents : null;
+      return view('article.qiita', ['contents' => $contents]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
