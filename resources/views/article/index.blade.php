@@ -13,7 +13,7 @@
             <div class="main-box col-md-8">
               <div class="card-body">
                 <div class="card-body-main">
-                  <h5 class="card-title font-weight-bold">{{$article->title}}</h5>
+                  <h4 class="card-title font-weight-bold">{{$article->title}}</h4>
                   <p class="card-text">{{$article->description}}</p>
                 </div>
                 <p class="card-body-sub">
