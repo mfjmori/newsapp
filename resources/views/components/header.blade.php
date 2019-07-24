@@ -1,3 +1,16 @@
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="{{ route('articles.news', ['category' => 'technology'])}}"><h3 class="my-0">NewsApp</h3></a>
+  <ul class="navbar-nav flex-row">
+    @if(Auth::check())
+      <li class="nav-item text-light"><a class="nav-link">ようこそ{{ Auth::user()->name }}さん</a></li>
+      <li class="nav-item ml-3"><a class="nav-link" href="#">ログアウト</a></li>
+    @else
+      <li class="nav-item"><a class="nav-link" href="{{route('login')}}">ログイン</a></li>
+      <li class="nav-item ml-3"><a class="nav-link" href="{{route('register')}}">新規登録</a></li>
+    @endif
+  </ul>
+</nav>
+
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm py-0">
   <button class="navbar-toggler mr-0 ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
