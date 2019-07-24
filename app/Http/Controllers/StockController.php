@@ -87,6 +87,7 @@ class StockController extends Controller
      */
     public function destroy($id)
     {
-        //
+      Stock::find($id)->delete();
+      return redirect('/stocks');
     }
 }
