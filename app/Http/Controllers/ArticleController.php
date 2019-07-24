@@ -12,7 +12,7 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ArticleRequest $request)
+    public function news(ArticleRequest $request)
     {
       $newsApiKey =  env('NEWS_API_KEY');
       $category = $request->category;
@@ -28,7 +28,7 @@ class ArticleController extends Controller
         $contents = json_decode($json);
       }
       $contents = $contents ? $contents : null;
-      return view('article.index', ['contents' => $contents]);
+      return view('article.news', ['contents' => $contents]);
     }
 
     public function qiita(Request $request)

@@ -6,7 +6,7 @@ class Helper
 {
     public static function addActive($category)
     {
-      $currentCategory = str_replace(route('articles.index'),"",request()->fullUrl());
+      $currentCategory = str_replace(route('articles.news'),"",request()->fullUrl());
       if ($currentCategory == $category) {
         return 'active';
       }
