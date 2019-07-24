@@ -12,7 +12,7 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ArticleRequest $request)
+    public function news(ArticleRequest $request)
     {
       $newsApiKey =  env('NEWS_API_KEY');
       $category = $request->category;
@@ -28,7 +28,18 @@ class ArticleController extends Controller
         $contents = json_decode($json);
       }
       $contents = $contents ? $contents : null;
-      return view('article.index', ['contents' => $contents]);
+      return view('article.news', ['contents' => $contents]);
+    }
+
+    public function qiita(Request $request)
+    {
+      $url = 'https://qiita.com/api/v2/items?page=1&per_page=30&query=stocks:>40+created:>=2019-07-16';
+      $json = file_get_contents($url, false, null);
+      if ($json) {
+        $contents = json_decode($json);
+      }
+      $contents = isset($contents) ? $contents : null;
+      return view('article.qiita', ['contents' => $contents]);
     }
 
     /**

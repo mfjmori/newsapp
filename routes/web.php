@@ -12,7 +12,8 @@
 */
 
 Route::redirect('/', '/articles/technology', 301);
-Route::get('/articles/{category?}', 'ArticleController@index')->name('articles.index');
+Route::get('/articles/qiita', 'ArticleController@qiita')->name('articles.qiita');
+Route::get('/articles/{category?}', 'ArticleController@news')->name('articles.news');
 
 
 Auth::routes();
