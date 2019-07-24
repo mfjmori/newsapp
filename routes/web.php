@@ -17,5 +17,8 @@ Route::get('/articles/{category?}', 'ArticleController@news')->name('articles.ne
 
 
 Auth::routes();
+Route::namespace('Auth')->group(function () {
+  Route::get('/logout', 'LoginController@getLogout');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
