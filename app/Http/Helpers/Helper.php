@@ -4,10 +4,9 @@ namespace App\Http\Helpers;
 
 class Helper
 {
-    public static function addActive($category)
+    public static function addActive($url)
     {
-      $currentCategory = str_replace(route('articles.news'),"",request()->fullUrl());
-      if ($currentCategory == $category) {
+      if ($url == request()->fullUrl()) {
         return 'active';
       }
     }
