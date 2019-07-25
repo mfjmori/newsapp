@@ -12,11 +12,4 @@ class Stock extends Model
 
   protected $guarded = array('id');
 
-  public static $rules = array(
-    'user_id' => 'required',
-    'url' => 'required|active_url',
-    'title' => 'required',
-    'published_at' => 'required|date',
-    'likes_count' => 'integer'
-  );
 }

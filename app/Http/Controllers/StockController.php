@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Stock;
+use App\Http\Requests\StockRequest;
 
 class StockController extends Controller
 {
@@ -35,10 +36,8 @@ class StockController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StockRequest $request)
     {
-      $request["user_id"] = Auth::id();
-      $this->validate($request, Stock::$rules);
       $form = $request->all();
       unset($form['_token']);
       Stock::create($form);
