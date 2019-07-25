@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StockRequest extends FormRequest
 {
@@ -26,7 +27,13 @@ class StockRequest extends FormRequest
     {
         return [
           'user_id' => 'required',
-          'url' => 'required|active_url',
+          'url' => ['required',
+            'active_url',
+            Rule::unique('stocks')
+              ->where(function($query) {
+              return $query->where('user_id', $this->user_id);
+              }),
+            ],
           'title' => 'required',
           'published_at' => 'required|date',
           'likes_count' => 'integer'

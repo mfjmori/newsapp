@@ -20,7 +20,7 @@ class CreateStocksTable extends Migration
               ->references('id')
               ->on('users')
               ->onDelete('cascade');
-            $table->text('url');
+            $table->string('url');
             $table->text('image_url')
               ->nullable();
             $table->string('title');
@@ -32,6 +32,8 @@ class CreateStocksTable extends Migration
               ->nullable();
             $table->dateTime('published_at');
             $table->timestamps();
+
+            $table->unique(['user_id', 'url']);
         });
     }
 
