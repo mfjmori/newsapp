@@ -33,7 +33,8 @@ class ArticleController extends Controller
 
     public function qiita(Request $request)
     {
-      $url = 'https://qiita.com/api/v2/items?page=1&per_page=30&query=stocks:>40+created:>=2019-07-16';
+      $date1WeekAgo = date("Y-m-d",strtotime("-1 week"));
+      $url = "https://qiita.com/api/v2/items?page=1&per_page=30&query=stocks:>40+created:>=${date1WeekAgo}";
       $json = file_get_contents($url, false, null);
       if ($json) {
         $contents = json_decode($json);
