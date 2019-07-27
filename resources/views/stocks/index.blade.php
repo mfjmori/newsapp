@@ -16,15 +16,14 @@
                   <p class="card-text">{{$article->body}}</p>
                 </div>
                 <div class="card-body-sub d-flex justify-content-between align-items-end">
-                  <div class="card-info">
-                    @if ($article->source)
-                      <span class="card-source text-muted mr-2">{{$article->source}}</span><span class="card-date text-muted">{{ date("Y/m/d H:i",strtotime($article->published_at))}}</span>
-                    @elseif($article->likes_count)
-                      <span class="card-date text-muted">{{ date("Y/m/d H:i",strtotime($article->published_at))}}</span><span class="card-like text-muted ml-2"><i class="fas fa-thumbs-up"></i> {{ $article->likes_count }}</span>
+                  <div class="card-info col-5 px-0">
+                    <span class="card-source text-muted mr-2">{{$article->source}}</span><span class="card-date text-muted mr-2">{{ date("Y/m/d",strtotime($article->published_at))}}</span>
+                    @if($article->likes_count)
+                      <span class="card-like text-muted"><i class="fas fa-thumbs-up"></i> {{ $article->likes_count }}</span>
                     @endif
                   </div>
                   <div class="card-buttons">
-                    <button type="submit" form="form-{{ $article->id }}" class="btn btn-outline-danger">削除する</button>
+                    <button type="submit" form="form-{{ $article->id }}" class="btn btn-outline-danger"><i class="fas fa-trash-alt mr-1"></i>削除する</button>
                     <a type="submit" target="_blank" href="{{$article->url}}" class="btn btn-outline-primary ml-1">続きを読む</a>
                   </div>
                 </div>

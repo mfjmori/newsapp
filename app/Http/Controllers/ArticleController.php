@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
@@ -15,20 +16,25 @@ class ArticleController extends Controller
     public function news(ArticleRequest $request)
     {
       $newsApiKey =  env('NEWS_API_KEY');
-      $category = $request->category;
-      $categoryArray = ['business', 'science', 'technology',''];
-      $include = in_array($category, $categoryArray);
-      if ($include) {
+      $isCategory = in_array($request->category, ['business', 'science', 'technology','']);
+      if ($isCategory) {
+        $category = $request->category;
         $url = 'https://newsapi.org/v2/top-headlines?'.'country=jp&'.'category='.$category.'&apiKey='.$newsApiKey;
       } else {
-        $url = 'https://newsapi.org/v2/everything?'.'sources='.$category.'&apiKey='.$newsApiKey;
+        $source = $request->category;
+        $url = 'https://newsapi.org/v2/everything?'.'sources='.$source.'&apiKey='.$newsApiKey;
       }
       $json = file_get_contents($url, false, null);
       if ($json) {
         $contents = json_decode($json);
       }
       $contents = $contents ? $contents : null;
-      return view('article.news', ['contents' => $contents]);
+      if (Auth::check()) {
+        $urls = Auth::user()->stocks->pluck('url')->all();
+        return view('article.news', ['contents' => $contents, 'urls' => $urls]);
+      } else {
+        return view('article.news', ['contents' => $contents]);
+      }
     }
 
     public function qiita(Request $request)
@@ -40,7 +46,12 @@ class ArticleController extends Controller
         $contents = json_decode($json);
       }
       $contents = isset($contents) ? $contents : null;
-      return view('article.qiita', ['contents' => $contents]);
+      if (Auth::check()) {
+        $urls = Auth::user()->stocks->pluck('url')->all();
+        return view('article.qiita', ['contents' => $contents, 'urls' => $urls]);
+      } else {
+        return view('article.qiita', ['contents' => $contents]);
+      }
     }
 
     /**

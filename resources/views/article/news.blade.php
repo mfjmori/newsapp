@@ -23,12 +23,16 @@
                   <p class="card-text">{{$article->description}}</p>
                 </div>
                 <div class="card-body-sub d-flex justify-content-between align-items-end">
-                  <div class="card-info">
-                    <span class="card-source text-muted mr-2">{{$article->source->name}}</span><span class="card-date text-muted">{{ date("Y/m/d H:i",strtotime($article->publishedAt))}}</span>
+                  <div class="card-info col-5 px-0">
+                    <span class="card-source text-muted text-truncate mr-2">{{$article->source->name}}</span><span class="card-date text-muted">{{ date("Y/m/d",strtotime($article->publishedAt))}}</span>
                   </div>
                   <div class="card-buttons">
                     @if (Auth::check())
-                      <button type="submit" form="form-{{ $loop->index }}" class="btn btn-outline-success">後で読む</button>
+                      @if (in_array($article->url, $urls))
+                        <button type="button" disabled class="btn btn-outline-secondary"><i class="fas fa-check mr-1"></i>ストック中</button>
+                      @else
+                        <button type="submit" form="form-{{ $loop->index }}" class="btn btn-outline-success"><i class="fas fa-star mr-1"></i>後で読む</button>
+                      @endif
                     @endif
                     <a type="submit" target="_blank" href="{{$article->url}}" class="btn btn-outline-primary ml-1">続きを読む</a>
                   </div>
