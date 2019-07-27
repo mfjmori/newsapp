@@ -14,8 +14,11 @@
 Route::redirect('/', '/articles/technology', 301);
 Route::get('/articles/qiita', 'ArticleController@qiita')->name('articles.qiita');
 Route::get('/articles/{category?}', 'ArticleController@news')->name('articles.news');
-
+Route::resource('stocks', 'StockController', ['only' => ['index', 'store', 'destroy']]);
 
 Auth::routes();
+Route::namespace('Auth')->group(function () {
+  Route::get('/logout', 'LoginController@getLogout');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
