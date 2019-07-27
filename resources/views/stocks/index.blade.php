@@ -24,7 +24,7 @@
                   </div>
                   <div class="card-buttons">
                     <button type="submit" form="form-{{ $article->id }}" class="btn btn-outline-danger"><i class="fas fa-trash-alt mr-1"></i>削除する</button>
-                    <a type="submit" target="_blank" href="{{$article->url}}" class="btn btn-outline-primary ml-1">続きを読む</a>
+                    <a target="_blank" href="{{$article->url}}" class="btn btn-outline-primary ml-1">続きを読む</a>
                   </div>
                 </div>
               </div>
