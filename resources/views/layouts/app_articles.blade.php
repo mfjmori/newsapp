@@ -11,14 +11,22 @@
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    @if (env('APP_ENV')=='local')
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    @elseif(env('APP_ENV')=='production')
+    <script src="{{ secure_asset('js/app.js') }}" defer></script>
+    @endif
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @if (env('APP_ENV')=='local')
+      <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @elseif(env('APP_ENV')=='production')
+      <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
+    @endif
 </head>
 <body>
   @header
