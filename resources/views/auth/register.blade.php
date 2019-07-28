@@ -38,7 +38,7 @@
 
     <div class="actions">
         <button type="submit" class="btn btn-lg btn-primary btn-block">
-            {{ __('Register') }}
+            Sign In
         </button>
     </div>
 </form>
