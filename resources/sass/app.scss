@@ -3,8 +3,6 @@
 
 // Variables
 @import 'variables';
-@import 'header';
-@import 'articles';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
@@ -14,3 +12,8 @@
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/regular';
 @import '~@fortawesome/fontawesome-free/scss/brands';
+
+// other
+@import 'header';
+@import 'articles';
+@import 'register';
