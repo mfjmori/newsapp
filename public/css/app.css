@@ -1,42 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
-.navbar .navbar-nav .active {
-  border-bottom: thick solid red;
-}
-
-.navbar .navbar-nav .nav-item .nav-link {
-  font-size: 18px;
-}
-
-.articles-container .card .row .img-box .card-img-top {
-  height: 220px;
-  width: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
-}
-
-.articles-container .card .row .main-box .card-body {
-  height: 220px;
-}
-
-.articles-container .card .row .main-box .card-body .card-body-main {
-  height: 150px;
-}
-
-.articles-container .card .row .main-box .card-body .card-body-main .card-title {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-
-.articles-container .card .row .main-box .card-body .card-body-main .card-text {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-}
-
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -16522,5 +16485,50 @@ readers do not read off random characters that represent icons */
 
 .fab {
   font-family: "Font Awesome 5 Brands";
+}
+
+.navbar .navbar-nav .active {
+  border-bottom: thick solid red;
+}
+
+.navbar .navbar-nav .nav-item .nav-link {
+  font-size: 18px;
+}
+
+.articles-container .card .row .img-box .card-img-top {
+  height: 220px;
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.articles-container .card .row .main-box .card-body {
+  height: 220px;
+}
+
+.articles-container .card .row .main-box .card-body .card-body-main {
+  height: 150px;
+}
+
+.articles-container .card .row .main-box .card-body .card-body-main .card-title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.articles-container .card .row .main-box .card-body .card-body-main .card-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 320px;
+  padding: 15px;
+  margin: auto;
+  box-sizing: border-box;
 }
 

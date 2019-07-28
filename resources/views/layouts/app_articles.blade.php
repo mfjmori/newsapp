@@ -31,6 +31,8 @@
 <body>
   @header
   @endheader
+  @sub_header
+  @endsub_header
   <main>
     @yield('content')
   </main>
