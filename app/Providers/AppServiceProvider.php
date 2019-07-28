@@ -25,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+      if (\App::environment('production')) {
+        \URL::forceScheme('https');
+      }
       Schema::defaultStringLength(191);
       Blade::component('components.header', 'header');
       Blade::component('components.sub_header', 'sub_header');
