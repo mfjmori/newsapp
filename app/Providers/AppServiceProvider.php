@@ -27,5 +27,6 @@ class AppServiceProvider extends ServiceProvider
     {
       Schema::defaultStringLength(191);
       Blade::component('components.header', 'header');
+      Blade::component('components.sub_header', 'sub_header');
     }
 }
