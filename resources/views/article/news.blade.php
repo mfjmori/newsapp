@@ -9,8 +9,8 @@
         @endforeach
       </ul>  
     @endif
-    @if ($contents)
-      @foreach ($contents->articles as $article)
+    @if ($articles)
+      @foreach ($articles->articles as $article)
         <div class="card my-3">
           <div class="row no-gutters">
             <div class="img-box col-md-4">

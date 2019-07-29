@@ -2,8 +2,8 @@
 
 @section('content')
   <div class="container articles-container">
-    @if ($contents)
-      @foreach ($contents as $article)
+    @if ($articles)
+      @foreach ($articles as $article)
         <div class="card my-3">
           <div class="row no-gutters">
             <div class="img-box qiita col-md-4">

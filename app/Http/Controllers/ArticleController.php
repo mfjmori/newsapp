@@ -26,14 +26,14 @@ class ArticleController extends Controller
       }
       $json = file_get_contents($url, false, null);
       if ($json) {
-        $contents = json_decode($json);
+        $articles = json_decode($json);
       }
-      $contents = $contents ? $contents : null;
+      $articles = $articles ? $articles : null;
       if (Auth::check()) {
         $urls = Auth::user()->stocks->pluck('url')->all();
-        return view('article.news', ['contents' => $contents, 'urls' => $urls]);
+        return view('article.news', ['articles' => $articles, 'urls' => $urls]);
       } else {
-        return view('article.news', ['contents' => $contents]);
+        return view('article.news', ['articles' => $articles]);
       }
     }
 
@@ -43,14 +43,14 @@ class ArticleController extends Controller
       $url = "https://qiita.com/api/v2/items?page=1&per_page=30&query=stocks:>40+created:>=${date1WeekAgo}";
       $json = file_get_contents($url, false, null);
       if ($json) {
-        $contents = json_decode($json);
+        $articles = json_decode($json);
       }
-      $contents = isset($contents) ? $contents : null;
+      $articles = isset($articles) ? $articles : null;
       if (Auth::check()) {
         $urls = Auth::user()->stocks->pluck('url')->all();
-        return view('article.qiita', ['contents' => $contents, 'urls' => $urls]);
+        return view('article.qiita', ['articles' => $articles, 'urls' => $urls]);
       } else {
-        return view('article.qiita', ['contents' => $contents]);
+        return view('article.qiita', ['articles' => $articles]);
       }
     }
 
