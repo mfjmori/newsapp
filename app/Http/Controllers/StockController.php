@@ -40,8 +40,12 @@ class StockController extends Controller
     {
       $form = $request->all();
       unset($form['_token']);
-      Stock::create($form);
-      return redirect('/');
+      $saved = Stock::create($form);
+      if($saved) {
+        return response()->json(['code' => 201,]);
+      } else {
+        return response()->json(['code' => 400,]);
+      }
     }
 
     /**

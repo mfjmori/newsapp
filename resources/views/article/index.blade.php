@@ -33,7 +33,7 @@
                   <div class="card-buttons">
                     @if (Auth::check())
                       @if (in_array($article->url, $urls))
-                        <button type="button" disabled class="btn btn-outline-secondary"><i class="fas fa-check mr-1"></i>ストック中</button>
+                        <button type="button" disabled class="form-submit btn btn-outline-secondary"><i class="fas fa-check mr-1"></i>ストック中</button>
                       @else
                         <button type="submit" form="form-{{ $loop->index }}" class="btn btn-outline-success"><i class="fas fa-star mr-1"></i>後で読む</button>
                       @endif
@@ -46,7 +46,7 @@
           </div>
         </div>
         @if (Auth::check())
-          <form action="{{ route('stocks.store') }}" method="post" id="form-{{ $loop->index }}">
+          <form action="{{ route('stocks.store') }}" method="post" class="article-form" id="form-{{ $loop->index }}">
             @csrf
             <input type="hidden" readonly="true" name="url" value="{{ $article->url }}">
             <input type="hidden" readonly="true" name="image_url" value="{{ isset($article->urlToImage) ? $article->urlToImage : 'https://pbs.twimg.com/card_img/1154051843481194496/XozAi0UL?format=png&name=240x240' }}">
