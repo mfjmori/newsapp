@@ -21,16 +21,6 @@ class StockController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -40,42 +30,12 @@ class StockController extends Controller
     {
       $form = $request->all();
       unset($form['_token']);
-      Stock::create($form);
-      return redirect('/');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+      $saved = Stock::create($form);
+      if($saved) {
+        return response()->json(['code' => 201,]);
+      } else {
+        return response()->json(['code' => 400,]);
+      }
     }
 
     /**
@@ -86,7 +46,9 @@ class StockController extends Controller
      */
     public function destroy($id)
     {
-      Stock::find($id)->delete();
-      return redirect('/stocks');
+      $article = Stock::find($id);
+      if ($article->user->id == Auth::id()) {
+        $article->delete();
+      }
     }
 }

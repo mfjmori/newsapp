@@ -36911,7 +36911,11 @@ module.exports = function(module) {
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // window.Vue = require('vue');
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+__webpack_require__(/*! ./articleStore */ "./resources/js/articleStore.js");
+
+__webpack_require__(/*! ./articleDelete */ "./resources/js/articleDelete.js"); // window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -36932,6 +36936,101 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // window
 // const app = new Vue({
 //     el: '#app',
 // });
+
+/***/ }),
+
+/***/ "./resources/js/articleDelete.js":
+/*!***************************************!*\
+  !*** ./resources/js/articleDelete.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  $('.delete-button').on('click', function () {
+    var deleteConfirm = confirm('削除しますか？');
+
+    if (deleteConfirm) {
+      var articleId = $(this).data('article-id');
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({
+        url: '/stocks/' + articleId,
+        type: 'POST',
+        data: {
+          '_method': 'DELETE'
+        }
+      }).done(function () {
+        var article = $('#article-' + articleId);
+        article.remove();
+        $('.alert').remove();
+        $('main').prepend('<p class="alert alert-success fixed-top">記事を削除しました</p>');
+        setTimeout("$('.alert').fadeOut('slow')", 2000);
+      }).fail(function () {
+        $('.alert').remove();
+        $('main').prepend('<p class="alert alert-danger fixed-top">記事を削除できませんでした</p>');
+        setTimeout("$('.alert').fadeOut('slow')", 2000);
+      });
+    }
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/articleStore.js":
+/*!**************************************!*\
+  !*** ./resources/js/articleStore.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var appendSuccessMessage = function appendSuccessMessage() {
+    $('.alert').remove();
+    $('main').prepend('<p class="alert alert-success fixed-top">記事をストックしました</p>');
+    setTimeout("$('.alert').fadeOut('slow')", 2000);
+  };
+
+  var appendErrorMessage = function appendErrorMessage() {
+    $('.alert').remove();
+    $('main').prepend('<p class="alert alert-danger fixed-top">記事をストックできませんでした</p>');
+    setTimeout("$('.alert').fadeOut('slow')", 2000);
+  };
+
+  $('.article-form').on('submit', function (e) {
+    e.preventDefault();
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var formData = new FormData(this);
+    var url = $(this).attr('action');
+    var formId = $(this).attr("id");
+    $.ajax({
+      url: url,
+      type: "POST",
+      data: formData,
+      dataType: 'json',
+      processData: false,
+      contentType: false
+    }).done(function (json) {
+      if (json.code == 201) {
+        var submitButton = $("[form = '".concat(formId, "']"));
+        submitButton.before('<button type="button" disabled class="form-submit btn btn-outline-secondary"><i class="fas fa-check mr-1"></i>ストック中</button>');
+        submitButton.remove();
+        appendSuccessMessage();
+      } else if (json.code == 400) {
+        appendErrorMessage();
+      }
+    }).fail(function () {
+      appendErrorMessage();
+    });
+  });
+});
 
 /***/ }),
 
