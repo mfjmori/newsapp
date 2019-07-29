@@ -10,21 +10,25 @@
       </ul>  
     @endif
     @if ($articles)
-      @foreach ($articles->articles as $article)
+      @foreach ($articles as $article)
         <div class="card my-3">
           <div class="row no-gutters">
             <div class="img-box col-md-4">
-              <img src="{{$article->urlToImage}}" class="card-img-top">
+              <img src="{{isset($article->urlToImage) ? $article->urlToImage : 'https://pbs.twimg.com/card_img/1154051843481194496/XozAi0UL?format=png&name=240x240'}}" class="card-img-top">
             </div>
             <div class="main-box col-md-8">
               <div class="card-body">
                 <div class="card-body-main">
                   <h4 class="card-title font-weight-bold">{{$article->title}}</h4>
-                  <p class="card-text">{{$article->description}}</p>
+                  <p class="card-text">{{isset($article->description) ? $article->description : $article->body}}</p>
                 </div>
                 <div class="card-body-sub d-flex justify-content-between align-items-end">
                   <div class="card-info col-5 px-0">
-                    <span class="card-source text-muted text-truncate mr-2">{{$article->source->name}}</span><span class="card-date text-muted">{{ date("Y/m/d",strtotime($article->publishedAt))}}</span>
+                    <span class="card-source text-muted text-truncate mr-2">{{isset($article->source->name) ? $article->source->name : "qiita"}}</span>
+                    <span class="card-date text-muted">{{ isset($article->publishedAt) ? date("Y/m/d",strtotime($article->publishedAt)) : date("Y/m/d",strtotime($article->created_at))}}</span>
+                    @if (isset($article->likes_count))
+                    <span class="card-like text-muted ml-2"><i class="fas fa-thumbs-up"></i> {{ $article->likes_count }}</span>
+                    @endif
                   </div>
                   <div class="card-buttons">
                     @if (Auth::check())
@@ -45,11 +49,14 @@
           <form action="{{ route('stocks.store') }}" method="post" id="form-{{ $loop->index }}">
             @csrf
             <input type="hidden" readonly="true" name="url" value="{{ $article->url }}">
-            <input type="hidden" readonly="true" name="image_url" value="{{ $article->urlToImage }}">
+            <input type="hidden" readonly="true" name="image_url" value="{{ isset($article->urlToImage) ? $article->urlToImage : 'https://pbs.twimg.com/card_img/1154051843481194496/XozAi0UL?format=png&name=240x240' }}">
             <input type="hidden" readonly="true" name="title" value="{{ $article->title }}">
-            <input type="hidden" readonly="true" name="body" value="{{ $article->description }}">
-            <input type="hidden" readonly="true" name="source" value="{{ $article->source->name }}">
-            <input type="hidden" readonly="true" name="published_at" value="{{ date("Y/m/d H:i", strtotime($article->publishedAt)) }}">
+            <input type="hidden" readonly="true" name="body" value="{{ isset($article->description) ? $article->description : $article->body }}">
+            <input type="hidden" readonly="true" name="source" value="{{ isset($article->source->name) ? $article->source->name : "qiita" }}">
+            @if (isset($article->likes_count))
+              <input type="hidden" readonly="true" name="likes_count" value="{{ $article->likes_count }}">
+            @endif
+            <input type="hidden" readonly="true" name="published_at" value="{{ isset($article->publishedAt) ? date("Y/m/d",strtotime($article->publishedAt)) : date("Y/m/d",strtotime($article->created_at)) }}">
           </form>
         @endif
       @endforeach

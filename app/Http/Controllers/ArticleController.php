@@ -26,14 +26,14 @@ class ArticleController extends Controller
       }
       $json = file_get_contents($url, false, null);
       if ($json) {
-        $articles = json_decode($json);
+        $articles = json_decode($json)->articles;
       }
       $articles = $articles ? $articles : null;
       if (Auth::check()) {
         $urls = Auth::user()->stocks->pluck('url')->all();
-        return view('article.news', ['articles' => $articles, 'urls' => $urls]);
+        return view('article.index', ['articles' => $articles, 'urls' => $urls]);
       } else {
-        return view('article.news', ['articles' => $articles]);
+        return view('article.index', ['articles' => $articles]);
       }
     }
 
@@ -48,9 +48,9 @@ class ArticleController extends Controller
       $articles = isset($articles) ? $articles : null;
       if (Auth::check()) {
         $urls = Auth::user()->stocks->pluck('url')->all();
-        return view('article.qiita', ['articles' => $articles, 'urls' => $urls]);
+        return view('article.index', ['articles' => $articles, 'urls' => $urls]);
       } else {
-        return view('article.qiita', ['articles' => $articles]);
+        return view('article.index', ['articles' => $articles]);
       }
     }
 
