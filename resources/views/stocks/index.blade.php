@@ -4,7 +4,7 @@
   <div class="container articles-container">
     @if ($articles)
       @foreach ($articles as $article)
-        <div class="card my-3">
+        <div class="card my-3" id="article-{{ $article->id }}">
           <div class="row no-gutters">
             <div class="img-box col-md-4">
               <img src="{{$article->image_url}}" class="card-img-top">
@@ -23,7 +23,7 @@
                     @endif
                   </div>
                   <div class="card-buttons">
-                    <button type="submit" form="form-{{ $article->id }}" class="btn btn-outline-danger"><i class="fas fa-trash-alt mr-1"></i>削除する</button>
+                    <button type="submit" data-article-id="{{ $article->id }}" class="btn btn-outline-danger delete-button"><i class="fas fa-trash-alt mr-1"></i>削除する</button>
                     <a target="_blank" href="{{$article->url}}" class="btn btn-outline-primary ml-1">続きを読む</a>
                   </div>
                 </div>
@@ -31,10 +31,10 @@
             </div>
           </div>
         </div>
-        <form id="form-{{ $article->id }}" action="{{route('stocks.destroy', ['id' => $article->id])}}" method="post">
+        {{-- <form id="form-{{ $article->id }}" action="{{route('stocks.destroy', ['id' => $article->id])}}" method="post">
           @csrf
           @method('DELETE')
-        </form>
+        </form> --}}
       @endforeach
     @endif
   </div>
