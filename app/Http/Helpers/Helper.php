@@ -6,7 +6,7 @@ class Helper
 {
     public static function addActive($url)
     {
-      if ($url == request()->fullUrl()) {
+      if ($url == url()->current()) {
         return 'active';
       }
     }
