@@ -7,6 +7,7 @@
 require('./bootstrap');
 require('./articleStore');
 require('./articleDelete');
+require('./articleRecommend');
 
 // window.Vue = require('vue');
 
