@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
     @if (env('APP_ENV')=='local')
     <script src="{{ asset('js/app.js') }}" defer></script>
     @elseif(env('APP_ENV')=='production')
