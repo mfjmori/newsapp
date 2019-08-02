@@ -14,9 +14,6 @@
         <a class="nav-link {{Helper::addActive(route('articles.news', ['category' => 'science']))}}" href="{{ route('articles.news', ['category' => 'science'])}}">科学</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link {{Helper::addActive(route('articles.qiita'))}}" href="{{ route('articles.qiita')}}">Qiita</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link {{Helper::addActive(route('articles.news', ['category' => 'hacker-news']))}}" href="{{ route('articles.news', ['category' => 'hacker-news'])}}">Hacker news</a>
       </li>
       <li class="nav-item">
@@ -33,6 +30,12 @@
       </li>
       <li class="nav-item">
         <a class="nav-link {{Helper::addActive(route('articles.news', ['category' => 'wired']))}}" href="{{ route('articles.news', ['category' => 'wired'])}}">Wired</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{Helper::addActive(route('articles.qiita'))}}" href="{{ route('articles.qiita')}}">Qiita</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{Helper::addActive(route('articles.recommend'))}}" href="{{ route('articles.recommend')}}">オススメ(Qiita)</a>
       </li>
       @if (Auth::check())
         <li class="nav-item">
