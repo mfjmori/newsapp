@@ -16,7 +16,7 @@ class StockController extends Controller
      */
     public function index()
     {
-      $stocks = Auth::user()->stocks->sortByDesc('created_at');
+      $stocks = Stock::where('user_id', Auth::id())->orderBy('created_at', 'desc')->paginate(10);
       return  view('stocks.index', ['articles' => $stocks]);
     }
 
