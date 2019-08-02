@@ -1,6 +1,7 @@
 @extends('layouts.app_articles')
 
 @section('content')
+  <div class="cookie"></div>
   <div class="container articles-container">
     @if (count($errors) > 0)
       <ul>
@@ -35,10 +36,14 @@
                       @if (in_array($article->url, $urls))
                         <button type="button" disabled class="form-submit btn btn-outline-secondary"><i class="fas fa-check mr-1"></i>ストック中</button>
                       @else
-                        <button type="submit" form="form-{{ $loop->index }}" class="btn btn-outline-success"><i class="fas fa-star mr-1"></i>後で読む</button>
+                        <button type="submit" form="form-{{ $loop->index }}" class="btn btn-outline-success" ><i class="fas fa-star mr-1"></i>後で読む</button>
                       @endif
                     @endif
-                    <a target="_blank" href="{{$article->url}}" class="btn btn-outline-primary ml-1">続きを読む</a>
+                    @if (isset($article->id))
+                      <a target="_blank" href="{{$article->url}}" class="btn btn-outline-primary save-history ml-1" data-id="{{$article->id}}" data-tags="{{json_encode($article->tags, JSON_UNESCAPED_UNICODE)}}">続きを読む</a>
+                    @else
+                      <a target="_blank" href="{{$article->url}}" class="btn btn-outline-primary ml-1">続きを読む</a>
+                    @endif
                   </div>
                 </div>
               </div>
@@ -60,6 +65,11 @@
           </form>
         @endif
       @endforeach
+    @else
+      <h2 class="text-center text-body mt-5 font-weight-bold">記事を取得できませんでした</h2>
+      @if (url()->current() == route('articles.recommend')) 
+        <h3 class="text-center text-muted mt-3">Qiitaを何度か閲覧するとオススメ記事が表示されます</h3>
+      @endif
     @endif
   </div>
 @endsection
