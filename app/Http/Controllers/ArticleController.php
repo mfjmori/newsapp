@@ -37,7 +37,7 @@ class ArticleController extends Controller
   public function qiita(Request $request)
   {
     $date1WeekAgo = date("Y-m-d",strtotime("-1 week"));
-    $url = "https://qiita.com/api/v2/items?page=1&per_page=30&query=stocks:>40+created:>=${date1WeekAgo}";
+    $url = "https://qiita.com/api/v2/items?page=1&per_page=20&query=stocks:>20+created:>=${date1WeekAgo}";
     $json = file_get_contents($url, false, null);
     if ($json) {
       $articles = json_decode($json, true);
@@ -45,7 +45,30 @@ class ArticleController extends Controller
     } else {
       $articles = null;
     }
-      return view('article.index', ['articles' => $articles]);
+    return view('article.index', ['articles' => $articles]);
+  }
+
+  public function recommend(Request $request)
+  {
+    if (isset($_COOKIE["tags-history"]) && $_COOKIE["id-history"]) {
+      $tagsHistory = json_decode($_COOKIE["tags-history"], true);
+      $idHistory = json_decode($_COOKIE["id-history"], true);
+      $countValue = array_count_values($tagsHistory);
+      $searchTags = array_keys(array_slice($countValue, 0, 4));
+      $url = self::setUrl($searchTags);
+      
+      $json = file_get_contents($url, false, null);
+      if ($json) {
+        $articles = json_decode($json, true);
+        $articles = self::removeAlreadyRead($articles ,$idHistory);
+        $articles = self::changeKeyNameQiita($articles);
+      } else {
+        $articles = null;
+      }
+    } else {
+      $articles = null;
+    }
+    return view('article.index', ['articles' => $articles]);
   }
   
   private function changeKeyNameNews($articles) {
@@ -76,11 +99,40 @@ class ArticleController extends Controller
         $likes_count = $article['likes_count'];
         $published_at = $article['created_at'];
         $image_url = 'https://pbs.twimg.com/card_img/1154051843481194496/XozAi0UL?format=png&name=240x240';
-        $newArticle = array(array('url' => $url, 'title' => $title, 'body' => $body, 'source' => $source, 'likes_count' => $likes_count , 'published_at' => $published_at, 'image_url' => $image_url));
+        $tags = array_map(function ($tag) { return $tag['name'];}, $article['tags']);
+        $id = $article['id'];
+        $newArticle = array(array('url' => $url, 'title' => $title, 'body' => $body, 'source' => $source, 'likes_count' => $likes_count , 'published_at' => $published_at, 'image_url' => $image_url, 'tags' => $tags, 'id' => $id));
         $newArticles = array_merge($newArticles, $newArticle);
       }
     }
     return json_decode(json_encode($newArticles));
+  }
+
+  private function setUrl($searchTags) {
+    $date1MonthAgo = date("Y-m-d",strtotime("-1 month"));
+    $base = 'https://qiita.com/api/v2/items';
+    $pageSet = '?page=1&per_page=50';
+    $queryStart = '&query=tag:';
+    $query = '';
+    foreach($searchTags as $key => $val) {
+      $query .= "${val}+stocks:>20+created:>=${date1MonthAgo}";
+      $firstKey = array_key_last($searchTags);
+      if ($key != $firstKey){
+        $query .= '%20OR%20';
+      }
+    }
+    $url = $base.$pageSet.$queryStart.$query;
+    return $url;
+  }
+
+  private function removeAlreadyRead($articles ,$idHistory) {
+    $newArticles = [];
+    foreach ($articles as $article) {
+      if (in_array($article['id'], $idHistory, true) == false) {
+        array_push($newArticles, $article);;
+      }
+    }
+    return array_slice($newArticles, 0, 20);
   }
   
 }

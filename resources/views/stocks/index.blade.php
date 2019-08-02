@@ -31,10 +31,6 @@
             </div>
           </div>
         </div>
-        {{-- <form id="form-{{ $article->id }}" action="{{route('stocks.destroy', ['id' => $article->id])}}" method="post">
-          @csrf
-          @method('DELETE')
-        </form> --}}
       @endforeach
     @endif
   </div>

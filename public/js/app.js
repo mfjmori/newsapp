@@ -36915,7 +36915,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./articleStore */ "./resources/js/articleStore.js");
 
-__webpack_require__(/*! ./articleDelete */ "./resources/js/articleDelete.js"); // window.Vue = require('vue');
+__webpack_require__(/*! ./articleDelete */ "./resources/js/articleDelete.js");
+
+__webpack_require__(/*! ./articleRecommend */ "./resources/js/articleRecommend.js"); // window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -36975,6 +36977,50 @@ $(function () {
         setTimeout("$('.alert').fadeOut('slow')", 2000);
       });
     }
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/articleRecommend.js":
+/*!******************************************!*\
+  !*** ./resources/js/articleRecommend.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var storageLength = 50;
+  $('.save-history').on('click', function (e) {
+    var tagsHistory = Cookies.getJSON('tags-history');
+    var idHistory = Cookies.getJSON('id-history'); // タグの取得、設定
+
+    if (tagsHistory) {
+      tagsHistory.unshift($(this).data('tags'));
+      tagsHistory = Array.prototype.concat.apply([], tagsHistory);
+
+      if (tagsHistory.length >= storageLength) {
+        tagsHistory.length = storageLength;
+      }
+    } else {
+      tagsHistory = $(this).data('tags');
+    } // idの取得、設定
+
+
+    if (idHistory) {
+      idHistory.unshift($(this).data('id'));
+
+      if (idHistory.length >= storageLength) {
+        idHistory.length = storageLength;
+      }
+    } else {
+      idHistory = [];
+      idHistory.unshift($(this).data('id'));
+    } // Cookieとして保存
+
+
+    Cookies.set('tags-history', tagsHistory);
+    Cookies.set('id-history', idHistory);
   });
 });
 
