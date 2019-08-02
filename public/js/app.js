@@ -37019,9 +37019,7 @@ $(function () {
     } // Cookieとして保存
 
 
-    Cookies.set('tags-history', tagsHistory, {
-      domain: 'localhost:8000'
-    });
+    Cookies.set('tags-history', tagsHistory);
     Cookies.set('id-history', idHistory);
   });
 });
