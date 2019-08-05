@@ -11,9 +11,10 @@
 |
 */
 
-Route::redirect('/', '/articles/technology', 301);
-Route::get('/home', 'HomeController@index')->name('home');
-
+Route::redirect('/', '/articles/technology');
+Route::get('/about', function(){
+  return view('about');
+})->name('about');
 Route::get('/articles/qiita', 'ArticleController@qiita')->name('articles.qiita');
 Route::get('/articles/recommend', 'ArticleController@recommend')->name('articles.recommend');
 Route::get('/articles/{category?}', 'ArticleController@news')->name('articles.news');

@@ -54,9 +54,10 @@ class ArticleController extends Controller
       $tagsHistory = json_decode($_COOKIE["tags-history"], true);
       $idHistory = json_decode($_COOKIE["id-history"], true);
       $countValue = array_count_values($tagsHistory);
+      arsort($countValue);
       $searchTags = array_keys(array_slice($countValue, 0, 4));
       $url = self::setUrl($searchTags);
-      
+
       $json = file_get_contents($url, false, null);
       if ($json) {
         $articles = json_decode($json, true);
