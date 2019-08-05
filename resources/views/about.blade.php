@@ -3,7 +3,7 @@
 @section('content')
   <div class="container">
     <div class="row mt-5">
-      <h1 class="col-12">NwesAppへようこそ!!</h1>
+      <h1 class="col-12">Trend × Techへようこそ!!</h1>
       <p class="col-12">このサイトでは最新の技術系記事を閲覧することができます</p>
     </div>
     <div class="row mt-4">
