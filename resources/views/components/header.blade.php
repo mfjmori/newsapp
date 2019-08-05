@@ -2,10 +2,11 @@
   <a class="navbar-brand" href="{{ route('articles.news', ['category' => 'technology'])}}"><h3 class="my-0">NewsApp</h3></a>
   <ul class="navbar-nav flex-row">
     @if(Auth::check())
-      <li class="nav-item text-light"><a class="nav-link">ようこそ{{ Auth::user()->name }}さん</a></li>
-      <li class="nav-item ml-3"><a class="nav-link" href="{{route('logout')}}">ログアウト</a></li>
+    <li class="nav-item text-light ml-3"><a class="nav-link">ようこそ{{ Auth::user()->name }}さん</a></li>
+    <li class="nav-item ml-3"><a class="nav-link" href="{{route('logout')}}">ログアウト</a></li>
     @else
-      <li class="nav-item"><a class="nav-link" href="{{route('login')}}">ログイン</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{route('about')}}">このサイトについて</a></li>
+      <li class="nav-item ml-3"><a class="nav-link" href="{{route('login')}}">ログイン</a></li>
       <li class="nav-item ml-3"><a class="nav-link" href="{{route('register')}}">新規登録</a></li>
     @endif
   </ul>
