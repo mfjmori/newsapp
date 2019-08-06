@@ -24,31 +24,21 @@ class ArticleController extends Controller
       $source = $request->category;
       $url = 'https://newsapi.org/v2/everything?'.'sources='.$source.'&apiKey='.$newsApiKey;
     }
-    $json = file_get_contents($url, false, null);
-    if ($json) {
-      $articles = json_decode($json, true)['articles'];
-      $articles = self::changeKeyNameNews($articles);
-    } else {
-      $articles = null;
-    }
+    $json = self::getApiResult($url);
+    $json ? $articles = self::changeKeyNameNews($json['articles']) : $articles = null;
       return view('article.index', ['articles' => $articles]);
   }
   
-  public function qiita(Request $request)
+  public function qiita()
   {
     $date1WeekAgo = date("Y-m-d",strtotime("-1 week"));
     $url = "https://qiita.com/api/v2/items?page=1&per_page=20&query=stocks:>20+created:>=${date1WeekAgo}";
-    $json = file_get_contents($url, false, null);
-    if ($json) {
-      $articles = json_decode($json, true);
-      $articles = self::changeKeyNameQiita($articles);
-    } else {
-      $articles = null;
-    }
+    $json = self::getApiResult($url);
+    $json ? $articles = self::changeKeyNameQiita($json) : $articles = null;
     return view('article.index', ['articles' => $articles]);
   }
 
-  public function recommend(Request $request)
+  public function recommend()
   {
     if (isset($_COOKIE["tags-history"]) && $_COOKIE["id-history"]) {
       $tagsHistory = json_decode($_COOKIE["tags-history"], true);
@@ -57,18 +47,13 @@ class ArticleController extends Controller
       arsort($countValue);
       $searchTags = array_keys(array_slice($countValue, 0, 4));
       $url = self::setUrl($searchTags);
-
-      $json = file_get_contents($url, false, null);
+      $json = self::getApiResult($url);
       if ($json) {
-        $articles = json_decode($json, true);
-        $articles = self::removeAlreadyRead($articles ,$idHistory);
+        $articles = self::removeAlreadyRead($json ,$idHistory);
         $articles = self::changeKeyNameQiita($articles);
-      } else {
-        $articles = null;
       }
-    } else {
-      $articles = null;
     }
+    $articles = $articles ?? null;
     return view('article.index', ['articles' => $articles]);
   }
   
@@ -126,6 +111,18 @@ class ArticleController extends Controller
     return $url;
   }
 
+  private function getApiResult($url) {
+    $context = stream_context_create([ "http" => [ "ignore_errors" => true ] ]);
+    $json = file_get_contents($url, false, $context);
+    preg_match("/[0-9]{3}/", $http_response_header[0], $stcode);
+    if ($stcode[0] == 200) {
+      $json = json_decode($json, true);
+      return $json;
+    } else {
+      return false;
+    }
+  }
+
   private function removeAlreadyRead($articles ,$idHistory) {
     $newArticles = [];
     foreach ($articles as $article) {
@@ -135,5 +132,4 @@ class ArticleController extends Controller
     }
     return array_slice($newArticles, 0, 20);
   }
-  
 }
