@@ -21,6 +21,3 @@ Route::get('/articles/{category?}', 'ArticleController@news')->name('articles.ne
 Route::resource('stocks', 'StockController', ['only' => ['index', 'store', 'destroy']])->middleware('auth');
 
 Auth::routes();
-Route::namespace('Auth')->group(function () {
-  Route::get('/logout', 'LoginController@logout');
-});
