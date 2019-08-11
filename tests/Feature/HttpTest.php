@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Auth;
 
 class Httptest extends TestCase
 {
@@ -68,6 +69,22 @@ class Httptest extends TestCase
       
       $response = $this->get('/stocks');
       $response->assertRedirect('/login');
+    }
 
+    /** @test */
+    public function authenticated_user()
+    {
+      $user = factory(User::class)->create();
+      $this->actingAs($user);
+      $this->assertTrue(Auth::check());
+      
+      $response = $this->get('/login');
+      $response->assertRedirect('/articles/technology');
+      
+      $response = $this->get('/register');
+      $response->assertRedirect('/articles/technology');
+      
+      $response = $this->get('/stocks');
+      $response->assertStatus(200);
     }
 }
