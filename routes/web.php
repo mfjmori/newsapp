@@ -22,5 +22,5 @@ Route::resource('stocks', 'StockController', ['only' => ['index', 'store', 'dest
 
 Auth::routes();
 Route::namespace('Auth')->group(function () {
-  Route::get('/logout', 'LoginController@getLogout');
+  Route::get('/logout', 'LoginController@logout');
 });
