@@ -84,7 +84,7 @@ class ArticleController extends Controller
         $source = 'qiita';
         $likes_count = $article['likes_count'];
         $published_at = $article['created_at'];
-        $image_url = 'https://pbs.twimg.com/card_img/1154051843481194496/XozAi0UL?format=png&name=240x240';
+        \App::environment('production') ? $image_url = 'https://newsapp-mfj.herokuapp.com/image/qiita-square.png' : $image_url = 'http://localhost:8000/image/qiita-square.png';
         $tags = array_map(function ($tag) { return $tag['name'];}, $article['tags']);
         $id = $article['id'];
         $newArticle = array(array('url' => $url, 'title' => $title, 'body' => $body, 'source' => $source, 'likes_count' => $likes_count , 'published_at' => $published_at, 'image_url' => $image_url, 'tags' => $tags, 'id' => $id));
